@@ -1,0 +1,125 @@
+Chapter 2:
+
+etc/passwd shows guid but does not show passwd
+
+etc/shadow can show password but might be encrypted?
+
+sudo adduser - gives fields to work with and adds the <username>
+sudo passwd <username> - changes password of a user
+sudo su - <username> - switches accounts, use exit to go back to prev
+sudo groupadd <name> - adds group <name>
+sudo usermod -g <groupname> <username> - switches primary group with -g option
+sudo gpasswd -d <username> <grouptoremove> - remove a user from a group
+sudo passwd -l <username> - lock a user account -u to unlock
+sudo chage -l <username> - views when  password expires etc.
+sudo usermod -aG sudo <username> - gives other users root access
+
+using visudo you can give users access to various permissions, has a makefile format
+	example: <user> ALL=(ALL:ALL) /sbin/reboot,/sbin/shutdown gives <user> reboot and shutdown perms
+	
+-x = perm to run executable files
+	order = rwx, --- means no perms
+	
+setting permissions onf iles and directories:
+	object type -- user -- group -- world
+			rw-	rw-	rw-
+			rw-	r--	r--
+			rwx	rwx	r-x
+			
+for directories:
+	r = contents can be viewed
+	w = contents of directory can be altered
+	x = the user or group can use cd to go inside the dir
+	
+	
+to remove permissions for directories and files example:
+	chmod o-r /home/<user>/<file> 
+	this removes read perms for other users other than group/self
+	chmod o+r gives the perm back
+	
+Read: 4, Write: 2, Execute: 1
+example:
+	600: user has read + write equiv to -rw-------
+
+chmod 770 -R <directory> - changes to all the files and directories underneath to 770
+
+chown command to change ownership or give access to an object
+example:
+	sudo chown <user>:<group>:<etc> <file>
+	(does not need more than <user>)
+	chgrp works as well as a replacement for chown
+	
+
+Chapter 3: Managing Software Packages (incomplete)
+
+sudo apt update - updates package sources
+sudo apt remove <package> 
+	--purge to wipe configuration
+
+which - command to find the location of the binary file for comands that are available
+	if not avail, no output
+	
+to update a package, use refresh:
+	sudo snap refresh <package>
+	
+look up packages on http://packages.ubuntu.com/
+
+apt advanced package tool - suite of tools that allows us to install, remove, and update Deb packages
+
+running sudo apt update after handling/dealing with packages is good practice
+
+ppa personal package archive - another form of apt repository
+
+
+Chapter 4: Navigating and Essential Commands
+
+head/tail <file> - shows first ten or last ten lines respectively
+	-n <number> to vary lines
+	-f displays new lines as they are appended, real time
+	
+
+Chapter 5: Managing Files and Directories
+
+:sp to split the screen (vim)
+
+standard output
+	cat /var/log/syslog > /logfile.txt - redirects standard output of syslog into logfile.txt
+	>> to append and not overwrite
+	
+file descriptors:
+	0 standard input
+	1 standard output
+	2 standard error
+	
+/dev/null is a special device where things disappear forever
+	find / name "syslog" 2> /def/null
+	
+find / -name "syslog" 1> stdout.txt 2> stderr.txt
+	redirecting successful output to stdout.txt and errors to stderr.txt.
+	
+creating links - ln file1 file3
+		 ls -i  to look at what are linked to each other using the inode number
+		 
+		 
+Chapter 10: Connecting to Networks:
+
+sudo hostnamectl set-hostname <hostname> - changes hostname
+sudo ip link set enp0s3 down/up - preventing from connecting to networks / connecting to net
+	en for ethernet, wl for wireless
+	p references which bus is being used, p0 refers to the first bus
+	s3 references the PCI slot (3)
+	
+view /etc/netplan directory to see how .yaml files are formatted
+if dhcp4 is true, this means that ip addresses are dynamically allocated, generally we want a static ip 
+ip address should be selected not from the range broadcasted
+sudo netplan apply - to apply changes 
+
+	
+		 
+Chapter 15: Automating Server Configuration with Ansible
+
+
+
+
+
+	
