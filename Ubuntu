@@ -8,7 +8,7 @@ sudo adduser - gives fields to work with and adds the <username>
 sudo passwd <username> - changes password of a user
 sudo su - <username> - switches accounts, use exit to go back to prev
 sudo groupadd <name> - adds group <name>
-sudo usermod -g <groupname> <username> - switches primary group with -g option
+sudo usermod -g <groupname> <username> - switches primary group with -g option -a for append
 sudo gpasswd -d <username> <grouptoremove> - remove a user from a group
 sudo passwd -l <username> - lock a user account -u to unlock
 sudo chage -l <username> - views when  password expires etc.
@@ -113,10 +113,54 @@ view /etc/netplan directory to see how .yaml files are formatted
 if dhcp4 is true, this means that ip addresses are dynamically allocated, generally we want a static ip 
 ip address should be selected not from the range broadcasted
 sudo netplan apply - to apply changes 
+ctrl+b + d to exit tmux, tmux a to reattach
 
+ethernet interfaces now start with en, not eth ? 
+wireless interfaces start with wl
+ifconfig -a to see what connections you are dealing with 
+
+systemd-resolve --status |grep DNS\ Servers - used to show DNS servers
+
+sudo ss -tunlp |grep ssh - lists listening ports
+
+ssh-keygen - generates an ssh key-pair
+	-p to change passphrase
+ssh-copy-id -i ~/.ssh.id_rsa.pub 192.168.1.150 - transmitting public key to target server 
+/home/<user>/.ssh/config - file that simplifies ssh process, see commandline for format
+
+
+Chapter 11: Setting Up Network Services:
+
+ip addr show - shows ip address duh
+
+CIDR = Classless Inter-Domain Routing which is the number of ip addresses available
+	/32 = 1
+	/24 = 254
+	/16 = 65,534
+	/8 = 16,777,214
+	
+sunny subnetting table
+
+subnet      : 1   2   4   8   16   32   64   128   256
+Host        : 256 128 64  32  16   8    4    2     1
+Subnet Mask : /24 /25 /26 /27 /28  /29  /30  /31   /32
+
+we use the column associated with the number of subnets that we want
+Usable hosts are -2 of total hosts because first is resd for network id and last is for broadcast id
+Network id starts with ip and the last number would be the # of hosts : <hosts> * 2n from n = 0
+broadcast id would be the last id so if it ranges from 0 - 63, it would be 63 + 64 and so on
 	
 		 
 Chapter 15: Automating Server Configuration with Ansible
+
+Chapter 21: Securing Your Server
+
+port 22 most common port for hackers to try to hack so change it to something else.
+to specify port : ssh -p 65332 <myhost>
+	scp use -P
+AllowUsers <user0> <user1> .. - allows users to access server via ssh
+set password authentication to no after setting up a public key
+
 
 
 
