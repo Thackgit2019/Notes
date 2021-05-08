@@ -153,6 +153,33 @@ broadcast id would be the last id so if it ranges from 0 - 63, it would be 63 + 
 		 
 Chapter 15: Automating Server Configuration with Ansible
 
+Don't need to have an inventory file if stored on git, all servers would just pull from git
+sudo apt install git if not already installed
+sudo apt install ansible
+1.) /etc/sudoers.d/<users>
+2.) place "ansible ALL(ALL) NOPASSWD: ALL" inside <users> file
+3.) sudo chown root:root /etc/sudoers.d/ansible - make file owned by root
+4.) sudo chmod 440 /etc/sudoers.d/ansible - adjust permissions of the files
+5.) sudo su - <user> and test ssh ip sudo ls /etc - to very if it works
+
+Setting up inventory file:
+1.) sudo touch /etc/ansible/hosts
+2.) chown ansible /etc/ansible/hosts - only the user can read it
+3.) chmod 600 /etc/ansible/hosts
+4.) Put server IPs inside hosts files row by row
+5.) ansible all -m ping - to test if set up correctly
+
+Configuring client servers:
+1.) create file packages.yml - look at ubuntu command line for reference on format
+	a.) --- part of yaml format
+	b.) - hosts: all - heading
+	c.) become: true - ansible term for describing sudo, so that commands go through
+	d.) - name: Install htop - shows up in logs, should always include, kind of like printfing?
+	e.) apt: - for managing packages
+2.) run by - ansible-playbook packages.yml
+
+
+
 Chapter 21: Securing Your Server
 
 port 22 most common port for hackers to try to hack so change it to something else.
