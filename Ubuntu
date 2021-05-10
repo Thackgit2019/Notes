@@ -100,6 +100,36 @@ find / -name "syslog" 1> stdout.txt 2> stderr.txt
 creating links - ln file1 file3
 		 ls -i  to look at what are linked to each other using the inode number
 		 
+
+Chapter 6: Boosting Command-Line Efficiency
+
+Typing in history shows commands used previously
+	!<number> to run again
+	history -d <num> - to delete an instance
+	
+!! - last command used
+sudo !! - for root priv
+
+ctrl+a - moves cursor to beginning of line
+ctrl+e - moves cursor to the end of the line
+ctrl+l - clears the screen
+ctrl+k - deletes chars from the cursor to the end of the line
+ctrl+u - deletes everything you've typed on that line (also works to clear text while entering a pass
+ctrl+x+e - for long commands that need changes, opens a text editor for the command line
+chain commands with &&
+; executes second command regardless of result from the first command
+alias install="sudo apt install" - nice shortcut
+alias mem10='ps -L aux | sort -nr -k 4 | head -10' - view top ten ram consuming processes
+
+Bash Script that backups for u:
+#/bin/bash
+CURDATE=$(date +%m-%d-%Y)
+if [ ! -f /usr/bin/rsync ]; then 
+    sudo apt install -y rsync 
+fi
+rsync -avb --delete --backup-dir=/backup/incremental/$CURDATE /src /target 
+
+
 		 
 Chapter 10: Connecting to Networks:
 
