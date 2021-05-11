@@ -129,9 +129,30 @@ if [ ! -f /usr/bin/rsync ]; then
 fi
 rsync -avb --delete --backup-dir=/backup/incremental/$CURDATE /src /target 
 
+Chapter 7: Controlling and Managing Processes
 
+ps - shows a list of processes run by user who calls
+	ps -a - shows add info
+	TTY - teletypewriter which is a terminal that grabs input (keyb)
+	ps au - even more info
+	ps aux - even MORE info
+	
+Changing priority of processes
+
+ps -l to look at niceness and priorities
+renice -n 10 -p 41267 - give niceness 10 to pid 41267
+	lowest -20, highest 19? - lower the higher prio
+nice -n 10 vim - default is 10
+sudo kill 31258 
+
+Signals:
+	SIGHUP - tells processes that their controlling terminal has exited
+	SIGHINT - Stop application running in the foreground
+	SIGTERM(15) - asks a process to terminate cleanly
+	SIGKILL(9) - forces process to terminate uncleanly
+killall - kill processes by name
 		 
-Chapter 10: Connecting to Networks:
+Chapter 10: Connecting to Networks
 
 sudo hostnamectl set-hostname <hostname> - changes hostname
 sudo ip link set enp0s3 down/up - preventing from connecting to networks / connecting to net
