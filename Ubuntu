@@ -151,6 +151,15 @@ Signals:
 	SIGTERM(15) - asks a process to terminate cleanly
 	SIGKILL(9) - forces process to terminate uncleanly
 killall - kill processes by name
+
+
+Chapter 8: Monitoring System Resources
+
+Viewing Disk Usage
+
+df -h: Lists all mounted volumes and see how much space is left on each with readable output
+
+
 		 
 Chapter 10: Connecting to Networks
 
